@@ -1,4 +1,4 @@
-import { Header } from '../components/header';
+import { Header } from '../components/Header';
 import './HomePage.css';
 
 //Vite will load images from public automatically
