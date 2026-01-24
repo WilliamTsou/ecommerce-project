@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Header } from '../components/Header';
 import { products } from '../../starting-code/data/products'
 import CheckmarkIcon from "../assets/images/icons/checkmark.png";
@@ -5,11 +6,9 @@ import './HomePage.css';
 
 //Vite will load images from public automatically
 export function Homepage() {
-  fetch("http://localhost:3000/api/products")
+  axios.get("http://localhost:3000/api/products")
     .then((response) => {
-      response.json().then((data) => {
-        console.log(data);
-      });
+      console.log(response.data);
     })
 
   return (
