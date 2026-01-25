@@ -8,7 +8,7 @@ export function OrdersPage() {
     <>
       <title>Orders</title>
       <link rel="icon" type="image/svg+xml" href="orders-favicon.png" />
-      <Header cart={cart} />
+      <Header />
 
       <div className="orders-page">
         <div className="page-title">Your Orders</div>
