@@ -6,8 +6,6 @@ import { Product } from "./Product";
 
 vi.mock('axios');
 
-
-
 describe('Product component', () => {
   let product;
   let loadCart;

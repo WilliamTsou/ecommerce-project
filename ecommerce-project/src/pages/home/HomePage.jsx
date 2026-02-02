@@ -7,7 +7,7 @@ import { ProductsGrid } from './ProductsGrid';
 import './HomePage.css';
 
 //Vite will load images from public automatically
-export function Homepage({ cart, loadCart }) {
+export function HomePage({ cart, loadCart }) {
   const [products, setProducts] = useState([]);
 
   const [searchParams] = useSearchParams();
