@@ -58,26 +58,50 @@ describe('DeliveryOptions component', () => {
     const deliveryOptionElems = screen.getAllByTestId('delivery-option');
     expect(deliveryOptionElems.length).toBe(3);
 
-    expect(deliveryOptionElems[0]).toHaveTextContent('Wednesday, Feb 4');
+    expect(deliveryOptionElems[0]).toHaveTextContent('Monday, May 19');
     expect(deliveryOptionElems[0]).toHaveTextContent('FREE Shipping');
     expect(
       within(deliveryOptionElems[0]).getByTestId("delivery-option-input")
         .checked,
     ).toBe(false);
 
-    expect(deliveryOptionElems[1]).toHaveTextContent("Wednesday, Feb 4");
+    expect(deliveryOptionElems[1]).toHaveTextContent("Thursday, May 15");
     expect(deliveryOptionElems[1]).toHaveTextContent("$4.99 - Shipping");
     expect(
       within(deliveryOptionElems[1]).getByTestId("delivery-option-input")
         .checked,
     ).toBe(true);
 
-    expect(deliveryOptionElems[2]).toHaveTextContent('Wednesday, Feb 4');
+    expect(deliveryOptionElems[2]).toHaveTextContent('Tuesday, May 13');
     expect(deliveryOptionElems[2]).toHaveTextContent('$9.99 - Shipping');
     expect(
       within(deliveryOptionElems[2]).getByTestId('delivery-option-input').checked
     ).toBe(false);
-  
+  });
 
-  })
+   it("updates the delivery option", async () => {
+     render(
+       <DeliveryOptions
+         cartItem={cartItem}
+         deliveryOptions={deliveryOptions}
+         loadCart={loadCart}
+       />,
+     );
+
+     const deliveryOptionElems = screen.getAllByTestId("delivery-option");
+
+     await user.click(deliveryOptionElems[2]);
+     expect(axios.put).toHaveBeenCalledWith(
+       "/api/cart-items/e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+       { deliveryOptionId: "3" },
+     );
+     expect(loadCart).toHaveBeenCalledTimes(1);
+
+     await user.click(deliveryOptionElems[0]);
+     expect(axios.put).toHaveBeenCalledWith(
+       "/api/cart-items/e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+       { deliveryOptionId: "1" },
+     );
+     expect(loadCart).toHaveBeenCalledTimes(2);
+   });
 });
