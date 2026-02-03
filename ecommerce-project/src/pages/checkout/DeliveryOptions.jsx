@@ -17,13 +17,15 @@ export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
             deliveryOptionId: deliveryOption.id
           });
           await loadCart();
+          console.log(deliveryOption);
         };
 
         return (
           <div 
             key={deliveryOption.id} 
             className="delivery-option"
-            onClick={updateDeliveryOption}  
+            onClick={updateDeliveryOption} 
+            data-testid="delivery-option" 
           >
             <input
               type="radio"
@@ -31,10 +33,11 @@ export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
               onChange={() => {}}
               className="delivery-option-input"
               name={`delivery-option-${cartItem.productId}`}
+              data-testid="delivery-option-input"
             />
             <div>
               <div className="delivery-option-date">
-                {dayjs(deliveryOption.estimatedDeliveryTimesMs).format(
+                {dayjs(deliveryOption.estimatedDeliveryTimeMs).format(
                   "dddd, MMM D",
                 )}
               </div>
@@ -45,4 +48,5 @@ export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
       })}
     </div>
   );
+    
 }
