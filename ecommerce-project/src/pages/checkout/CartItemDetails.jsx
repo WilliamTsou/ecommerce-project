@@ -50,8 +50,8 @@ export function CartItemDetails({ cartItem, loadCart }) {
         <div className="product-quantity">
           <span>
             Quantity: {isUpdatingQuantity 
-              ? <
-                  input type="text" 
+              ? <input 
+                  type="text" 
                   className="quantity-textbox" 
                   value={quantity}
                   onChange={updateQuantityInput}
@@ -59,7 +59,7 @@ export function CartItemDetails({ cartItem, loadCart }) {
                 /> 
               : <span className="quantity-label">{cartItem.quantity}</span>
             }
-            <span className="quantity-label">{cartItem.quantity}</span>
+            
           </span>
           <span 
             className="update-quantity-link link-primary"
