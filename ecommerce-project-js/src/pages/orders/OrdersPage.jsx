@@ -1,8 +1,6 @@
 import axios from "axios";
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "../../components/Header";
-import { Link } from "react-router";
-import BuyAgainIcon from "../../assets/images/icons/buy-again.png";
 import "./OrdersPage.css";
 import { OrderGrid } from "./OrdersGrid";
 
@@ -10,11 +8,15 @@ export function OrdersPage({ cart, loadCart }) {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const fetchOrdersData = async() => {
-      const response = await axios.get("/api/orders?expand=products");
-      setOrders(response.data);
-    }
-    
+    const fetchOrdersData = async () => {
+      try {
+        const response = await axios.get("/api/orders?expand=products");
+        setOrders(response.data);
+      } catch (error) {
+        console.error("Failed to load orders:", error);
+      }
+    };
+
     fetchOrdersData();
   }, []);
 

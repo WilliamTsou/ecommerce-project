@@ -1,10 +1,9 @@
 import axios from "axios";
 import dayjs from "dayjs";
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router";
 import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import "./TrackingPage.css";
-import { Link } from "react-router";
 
 export function TrackingPage({ cart }) {
   const { orderId, productId } = useParams();
@@ -12,8 +11,12 @@ export function TrackingPage({ cart }) {
 
   useEffect(() => {
     const fetchTrackingData = async () => {
-      const response = await axios.get(`/api/orders/${orderId}?expand=products`);
-      setOrder(response.data);
+      try {
+        const response = await axios.get(`/api/orders/${orderId}?expand=products`);
+        setOrder(response.data);
+      } catch (error) {
+        console.error("Failed to load tracking data:", error);
+      }
     };
 
     fetchTrackingData();
@@ -63,9 +66,9 @@ export function TrackingPage({ cart }) {
           <img className="product-image" src={orderProduct.product.image} />
 
           <div className="progress-labels-container">
-            <div className={`progress-label ${isPreparing && 'current-status'}`}>Preparing</div>
-            <div className={`progress-label ${isShipped && 'current-status'}`}>Shipped</div>
-            <div className={`progress-label ${isDelivered && 'current-status'}`}>Delivered</div>
+            <div className={`progress-label ${isPreparing ? 'current-status' : ''}`}>Preparing</div>
+            <div className={`progress-label ${isShipped ? 'current-status' : ''}`}>Shipped</div>
+            <div className={`progress-label ${isDelivered ? 'current-status' : ''}`}>Delivered</div>
           </div>
 
           <div className="progress-bar-container">

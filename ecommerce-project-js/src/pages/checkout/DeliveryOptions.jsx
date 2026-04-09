@@ -13,10 +13,14 @@ export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
         }
 
         const updateDeliveryOption = async () => {
-          await axios.put(`/api/cart-items/${cartItem.productId}`, {
-            deliveryOptionId: deliveryOption.id
-          });
-          await loadCart();
+          try {
+            await axios.put(`/api/cart-items/${cartItem.productId}`, {
+              deliveryOptionId: deliveryOption.id
+            });
+            await loadCart();
+          } catch (error) {
+            console.error("Failed to update delivery option:", error);
+          }
         };
 
         return (

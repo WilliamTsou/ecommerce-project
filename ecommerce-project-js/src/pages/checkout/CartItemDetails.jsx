@@ -8,12 +8,15 @@ export function CartItemDetails({ cartItem, loadCart }) {
 
   const updateQuantity = async () => {
     if (isUpdatingQuantity) {
-      await axios.put(`/api/cart-items/${cartItem.productId}`, {
-        quantity: Number(quantity)
-      });
-      await loadCart();
-
-      setIsUpdatingQuantity(false);
+      try {
+        await axios.put(`/api/cart-items/${cartItem.productId}`, {
+          quantity: Number(quantity)
+        });
+        await loadCart();
+        setIsUpdatingQuantity(false);
+      } catch (error) {
+        console.error("Failed to update quantity:", error);
+      }
     } else {
       setIsUpdatingQuantity(true);
     }
@@ -24,8 +27,12 @@ export function CartItemDetails({ cartItem, loadCart }) {
   };
 
   const deleteCartItem = async () => {
-    await axios.delete(`/api/cart-items/${cartItem.productId}`);
-    await loadCart();
+    try {
+      await axios.delete(`/api/cart-items/${cartItem.productId}`);
+      await loadCart();
+    } catch (error) {
+      console.error("Failed to delete cart item:", error);
+    }
   };
 
   const handleQuantityKeyDown = (event) => {
@@ -61,16 +68,16 @@ export function CartItemDetails({ cartItem, loadCart }) {
             }
             
           </span>
-          <span 
+          <button
             className="update-quantity-link link-primary"
-            onClick={updateQuantity} 
-          >Update</span>
-          <span
+            onClick={updateQuantity}
+          >Update</button>
+          <button
             className="delete-quantity-link link-primary"
             onClick={deleteCartItem}
           >
             Delete
-          </span>
+          </button>
         </div>
       </div>
     </>

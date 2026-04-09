@@ -8,14 +8,16 @@ import { TrackingPage } from './pages/TrackingPage';
 import { NotFoundPage } from "./pages/NotFoundPage";
 import './App.css';
 
-window.axios = axios;
-
 function App() {
   const [cart, setCart] = useState([]);
 
   const loadCart = async () => {
-    const response = await axios.get("/api/cart-items?expand=product");
-    setCart(response.data);
+    try {
+      const response = await axios.get("/api/cart-items?expand=product");
+      setCart(response.data);
+    } catch (error) {
+      console.error("Failed to load cart:", error);
+    }
   };
 
   useEffect(() => {

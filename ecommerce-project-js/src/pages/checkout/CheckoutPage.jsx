@@ -11,8 +11,12 @@ export function CheckoutPage({ cart, loadCart }) {
 
   useEffect(() => {
     const fetchCheckoutData = async () => {
-      const response = await axios.get("/api/delivery-options?expand=estimatedDeliveryTime");
-      setDeliveryOpotions(response.data);
+      try {
+        const response = await axios.get("/api/delivery-options?expand=estimatedDeliveryTime");
+        setDeliveryOptions(response.data);
+      } catch (error) {
+        console.error("Failed to load delivery options:", error);
+      }
     };
 
     fetchCheckoutData();
@@ -20,8 +24,12 @@ export function CheckoutPage({ cart, loadCart }) {
 
   useEffect(() => {
     const fetchPaymentSummary = async () => {
-      const response = await axios.get("/api/payment-summary");
-      setPaymentSummary(response.data);
+      try {
+        const response = await axios.get("/api/payment-summary");
+        setPaymentSummary(response.data);
+      } catch (error) {
+        console.error("Failed to load payment summary:", error);
+      }
     };
 
     fetchPaymentSummary();
