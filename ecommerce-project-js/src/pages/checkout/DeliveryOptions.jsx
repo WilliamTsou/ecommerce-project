@@ -17,7 +17,6 @@ export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
             deliveryOptionId: deliveryOption.id
           });
           await loadCart();
-          console.log(deliveryOption);
         };
 
         return (
